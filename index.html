@@ -7,7 +7,7 @@
   <meta name="author" content="Tasneem Almuzian" />
   <meta name="description" content="UCI CS student portfolio — interests in cybersecurity and HCI." />
 
-  <!-- Google fonts -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
@@ -17,14 +17,13 @@
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- NAV -->
+  <!-- NAV (logo removed) -->
   <header class="nav" role="navigation" aria-label="Primary">
     <div class="nav-inner">
-      <a class="logo" href="#home">Portfolio</a>
       <nav class="nav-links">
         <a href="#home">Home</a>
         <a href="#about">About</a>
-        <a href="#brain">What’s in my Brain</a>
+        <a id="brainBtn" href="#brain">What’s in my Brain</a>
         <a href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact</a>
       </nav>
     </div>
@@ -44,13 +43,13 @@
 
         <div class="actions">
           <a class="btn btn-primary" href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact Me</a>
-          <a class="btn btn-ghost" href="#brain">What’s in my Brain →</a>
+          <a class="btn btn-ghost" id="brainBtn2" href="#brain">What’s in my Brain →</a>
         </div>
       </div>
 
       <!-- YOUR PHOTO -->
       <figure class="pic-wrap" aria-label="Portrait of Tasneem Almuzian">
-        <!-- IMPORTANT: make sure the file is images/tasneem.jpg (all lowercase) -->
+        <!-- make sure the file exists at images/tasneem.jpg -->
         <img class="hero-pic" src="images/tasneem.jpg" alt="Portrait of Tasneem Almuzian" />
         <figcaption class="visually-hidden">Tasneem Almuzian</figcaption>
         <div class="ring ring-1" aria-hidden="true"></div>
@@ -83,7 +82,7 @@
       <div class="brain-stage" role="group" aria-label="Animated skills">
         <div class="brain-core" role="img" aria-label="Brain">🧠</div>
 
-        <!-- CSS-only pop animation on page load -->
+        <!-- CSS-only pop animation (triggered by JS adding .play to .brain-stage) -->
         <div class="skill s1">C++</div>
         <div class="skill s2">Java</div>
         <div class="skill s3">Python</div>
@@ -94,10 +93,10 @@
         <div class="skill s8">Data&nbsp;Structures</div>
       </div>
 
-      <p class="mono brain-tip">tip: this animation runs on page load — pure CSS.</p>
+      <p class="mono brain-tip">tip: click the button to replay the animation.</p>
     </section>
 
-    <!-- Validators (for the rubric) -->
+    <!-- Validators (for rubric) -->
     <section aria-labelledby="links-heading">
       <h2 id="links-heading" class="section-title">Links</h2>
       <ul class="link-list">
@@ -111,5 +110,47 @@
   <footer class="container footer" role="contentinfo">
     <p>© 2025 Tasneem Almuzian — UCI • Computer Science</p>
   </footer>
+
+  <!-- Tiny script: prevents hash-jump on refresh, plays animation on scroll and on button click -->
+  <script>
+    (function () {
+      // If the page loaded with #brain in URL (e.g., from a previous visit), remove it so the page starts at the top.
+      if (location.hash === '#brain') {
+        history.replaceState(null, '', location.pathname + location.search);
+        window.scrollTo(0, 0);
+      }
+
+      const brain = document.getElementById('brain');
+      const stage = brain.querySelector('.brain-stage');
+      const btns = [document.getElementById('brainBtn'), document.getElementById('brainBtn2')].filter(Boolean);
+
+      function playBrain() {
+        stage.classList.remove('play');
+        void stage.offsetWidth;   // reflow so animation can restart
+        stage.classList.add('play');
+      }
+
+      // Click: smooth scroll then play
+      btns.forEach(b => b.addEventListener('click', (e) => {
+        e.preventDefault();
+        brain.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(playBrain, 250);
+        // optional: show #brain in the URL without jumping
+        history.replaceState(null, '', '#brain');
+      }));
+
+      // First time the section enters view: play once automatically
+      let playedOnce = false;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting && !playedOnce) {
+            playedOnce = true;
+            playBrain();
+          }
+        });
+      }, { threshold: 0.45 });
+      io.observe(brain);
+    })();
+  </script>
 </body>
 </html>
