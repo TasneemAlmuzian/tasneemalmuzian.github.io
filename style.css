@@ -1,4 +1,4 @@
-/* -------- Base / theme -------- */
+/* -------- Theme & base -------- */
 :root{
   --bg:#ffffff;
   --text:#1a1625;
@@ -40,7 +40,9 @@ body{
   clip:rect(1px,1px,1px,1px); white-space:nowrap;
 }
 
-/* -------- Nav -------- */
+.mono{ font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace; }
+
+/* -------- Nav (centered links, no logo) -------- */
 .nav{
   position:sticky; top:0; z-index:50;
   backdrop-filter:saturate(150%) blur(6px);
@@ -49,9 +51,9 @@ body{
 }
 .nav-inner{
   max-width:1100px; margin:0 auto; padding:.75rem 1rem;
-  display:flex; align-items:center; justify-content:space-between;
+  display:flex; align-items:center; justify-content:center;
 }
-.logo{ font-weight:700; letter-spacing:.3px; text-decoration:none; color:var(--text); }
+.nav-links{ display:flex; gap:.5rem; flex-wrap:wrap; }
 .nav-links a{
   color:var(--text); text-decoration:none; padding:.4rem .6rem; border-radius:.5rem;
 }
@@ -96,12 +98,10 @@ body{
   position:relative; display:inline-block; padding:.6rem; border-radius:50%;
   border:2px solid var(--border); background:#fff; box-shadow:0 12px 36px rgba(167,139,250,.18);
 }
-.hero-pic {
-  display:block;
-  width:min(70vw,300px);
-  height:min(70vw,300px);
+.hero-pic{
+  display:block; width:min(70vw,300px); height:min(70vw,300px);
   object-fit:cover;
-  object-position: 50% 35%; 
+  object-position:50% 38%; /* tweak this to center your face (X% Y%) */
   border-radius:50%;
 }
 .ring{ position:absolute; border-radius:50%; pointer-events:none; }
@@ -126,13 +126,13 @@ body{
   border-radius:999px; padding:.4rem .8rem; font-weight:600; font-size:.95rem;
 }
 
-/* -------- Brain animation (CSS only) -------- */
+/* -------- Brain animation (triggered by .play) -------- */
 .brain-section{ text-align:center; }
 .brain-tip{ color:#6b5a84; font-size:.9rem; margin-top:.5rem; }
 
 .brain-stage{
   position:relative;
-  width:min(360px, 90vw);   /* responsive size so no sideways scroll */
+  width:min(360px, 90vw);
   height:min(360px, 90vw);
   margin:1.25rem auto 0;
 }
@@ -148,9 +148,15 @@ body{
   background:#fff; color:#312244; border:1px solid var(--border);
   border-radius:999px; padding:.55rem .9rem; font-weight:700; font-size:.95rem; white-space:nowrap;
   box-shadow:0 6px 14px rgba(49,34,68,.08);
-  animation:pop 820ms cubic-bezier(.2,.7,.2,1) forwards;
-  animation-delay:var(--d,0s);
+  /* no animation here; .play triggers it */
 }
+
+/* When stage has .play, animate the bubbles out */
+.brain-stage.play .skill{
+  animation: pop 820ms cubic-bezier(.2,.7,.2,1) forwards;
+  animation-delay: var(--d, 0s);
+}
+
 .s1{ --top:10%;  --left:50%;  --d:.15s; }
 .s2{ --top:22%;  --left:80%;  --d:.30s; }
 .s3{ --top:50%;  --left:92%;  --d:.45s; }
@@ -175,7 +181,7 @@ body{
 
 /* reduce-motion users still see everything without animation */
 @media (prefers-reduced-motion: reduce){
-  .ring-1, .ring-2, .skill { animation: none; }
+  .ring-1, .ring-2, .brain-stage.play .skill { animation: none; }
   .s1{ top:10%; left:50%; } .s2{ top:22%; left:80%; }
   .s3{ top:50%; left:92%; } .s4{ top:78%; left:78%; }
   .s5{ top:90%; left:50%; } .s6{ top:78%; left:22%; }
