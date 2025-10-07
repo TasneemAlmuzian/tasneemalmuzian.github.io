@@ -1,15 +1,15 @@
-/* ---------- Theme & base ---------- */
+/* -------- Base / theme -------- */
 :root{
   --bg:#ffffff;
-  --text:#1a1625;      /* deep plum */
-  --muted:#6b7280;     /* slate-500 */
-  --border:#eadff5;    /* soft lilac */
-  --primary:#e76ba6;   /* rose */
-  --primary-2:#a78bfa; /* lilac */
+  --text:#1a1625;
+  --muted:#6b7280;
+  --border:#eadff5;
+  --primary:#e76ba6;
+  --primary-2:#a78bfa;
 }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+*{ box-sizing: border-box; }
+html{ scroll-behavior:smooth; }
 body{
   margin:0;
   font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
@@ -19,10 +19,15 @@ body{
     radial-gradient(60% 50% at 90% 0%, #f4f0ff 0%, transparent 55%),
     #ffffff;
   line-height:1.6;
+
+  /* stop horizontal scrolling */
+  max-width:100vw;
+  overflow-x:hidden;
 }
 
 .container{ max-width:1100px; margin:0 auto; padding:0 1rem; }
 
+/* accessibility helpers */
 .skip-link{
   position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
 }
@@ -30,13 +35,12 @@ body{
   left:0; top:0; width:auto; height:auto; padding:.5rem .75rem;
   background:#fff; border:2px solid var(--primary); z-index:10000;
 }
-
 .visually-hidden{
   position:absolute !important; height:1px; width:1px; overflow:hidden;
   clip:rect(1px,1px,1px,1px); white-space:nowrap;
 }
 
-/* ---------- Nav ---------- */
+/* -------- Nav -------- */
 .nav{
   position:sticky; top:0; z-index:50;
   backdrop-filter:saturate(150%) blur(6px);
@@ -53,7 +57,7 @@ body{
 }
 .nav-links a:hover{ background:#fff; }
 
-/* ---------- Hero ---------- */
+/* -------- Hero -------- */
 .hero{
   display:grid; grid-template-columns:1.2fr 1fr; gap:2rem;
   align-items:center; padding:3.5rem 0 2rem;
@@ -87,21 +91,15 @@ body{
 }
 .btn-ghost:hover{ box-shadow:0 6px 20px rgba(167,139,250,.18); }
 
-/* Subtle skills ticker (advanced feature #1) */
-.mono{ font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace; }
-.ticker{
-  margin-top:18px; overflow:hidden; white-space:nowrap;
-  border:1px dashed var(--border); border-radius:999px; padding:.5rem .9rem; color:#5b4d72; background:#fff;
-  animation:fadein .8s ease .4s both;
-}
-@keyframes fadein{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
-
-/* Portrait with rings */
+/* photo + rings */
 .pic-wrap{
   position:relative; display:inline-block; padding:.6rem; border-radius:50%;
   border:2px solid var(--border); background:#fff; box-shadow:0 12px 36px rgba(167,139,250,.18);
 }
-.hero-pic{ display:block; width:min(70vw,300px); height:min(70vw,300px); object-fit:cover; border-radius:50%; }
+.hero-pic{
+  display:block; width:min(70vw,300px); height:min(70vw,300px);
+  object-fit:cover; border-radius:50%;
+}
 .ring{ position:absolute; border-radius:50%; pointer-events:none; }
 .ring-1{ inset:-8px; border:2px dashed var(--border); animation:spin 14s linear infinite; }
 .ring-2{
@@ -113,7 +111,7 @@ body{
 }
 @keyframes spin{ to{ transform:rotate(360deg); } }
 
-/* ---------- Sections ---------- */
+/* -------- Sections -------- */
 .section-title{
   font-family:"Playfair Display",serif; font-weight:800;
   border-bottom:1px solid var(--border); padding-bottom:.35rem; margin:1.25rem 0 .9rem;
@@ -124,11 +122,16 @@ body{
   border-radius:999px; padding:.4rem .8rem; font-weight:600; font-size:.95rem;
 }
 
-/* Brain animation (advanced feature #2) */
+/* -------- Brain animation (CSS only) -------- */
 .brain-section{ text-align:center; }
 .brain-tip{ color:#6b5a84; font-size:.9rem; margin-top:.5rem; }
 
-.brain-stage{ position:relative; width:380px; height:380px; margin:1.25rem auto 0; }
+.brain-stage{
+  position:relative;
+  width:min(360px, 90vw);   /* responsive size so no sideways scroll */
+  height:min(360px, 90vw);
+  margin:1.25rem auto 0;
+}
 .brain-core{
   position:absolute; inset:50% auto auto 50%; transform:translate(-50%,-50%);
   font-size:5rem; line-height:1; user-select:none; pointer-events:none;
@@ -159,25 +162,23 @@ body{
   100% { opacity:1; transform:translate(-50%,-50%) scale(1); top:var(--top); left:var(--left); }
 }
 
-/* Links list */
+/* validators list + footer */
 .link-list{ padding-left:1.1rem; }
-
-/* Footer */
 .footer{
   border-top:1px solid var(--border);
   margin-top:1.5rem; padding:1.25rem 1rem; color:var(--muted); text-align:center;
 }
 
-/* Accessibility preference */
+/* reduce-motion users still see everything without animation */
 @media (prefers-reduced-motion: reduce){
-  .ring-1, .ring-2, .skill, .ticker { animation: none; }
+  .ring-1, .ring-2, .skill { animation: none; }
   .s1{ top:10%; left:50%; } .s2{ top:22%; left:80%; }
   .s3{ top:50%; left:92%; } .s4{ top:78%; left:78%; }
   .s5{ top:90%; left:50%; } .s6{ top:78%; left:22%; }
   .s7{ top:50%; left:8%;  } .s8{ top:22%; left:20%; }
 }
 
-/* ---------- Responsive ---------- */
+/* -------- Responsive -------- */
 @media (max-width: 900px){
   .hero{ grid-template-columns:1fr; text-align:center; }
   .lead{ margin:0 auto; }
