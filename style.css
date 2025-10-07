@@ -45,8 +45,7 @@ body{
 /* -------- Nav (centered links, no logo) -------- */
 .nav{
   position:sticky; top:0; z-index:50;
-  backdrop-filter:saturate(150%) blur(6px);
-  background-color:rgba(255,255,255,.75);
+  background-color:rgba(255,255,255,.85);
   border-bottom:1px solid var(--border);
 }
 .nav-inner{
@@ -106,13 +105,21 @@ body{
 }
 .ring{ position:absolute; border-radius:50%; pointer-events:none; }
 .ring-1{ inset:-8px; border:2px dashed var(--border); animation:spin 14s linear infinite; }
+
+/* Validator-friendly colorful donut ring (no mask) */
 .ring-2{
-  inset:-18px; border:2px solid transparent;
-  background:conic-gradient(from 0deg, var(--primary), var(--primary-2), var(--primary));
-  -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
-          mask:radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
-  opacity:.25; animation:spin 24s linear infinite reverse;
+  inset:-18px;
+  position:absolute;
+  border-radius:50%;
+  border:3px solid transparent;
+  background:
+    conic-gradient(from 0deg, var(--primary), var(--primary-2), var(--primary)) border-box,
+    radial-gradient(circle, #fff 60%, #fff 60%) padding-box;
+  background-clip: border-box, padding-box;
+  opacity:.25;
+  animation:spin 24s linear infinite reverse;
 }
+
 @keyframes spin{ to{ transform:rotate(360deg); } }
 
 /* -------- Sections -------- */
@@ -148,7 +155,6 @@ body{
   background:#fff; color:#312244; border:1px solid var(--border);
   border-radius:999px; padding:.55rem .9rem; font-weight:700; font-size:.95rem; white-space:nowrap;
   box-shadow:0 6px 14px rgba(49,34,68,.08);
-  /* no animation here; .play triggers it */
 }
 
 /* When stage has .play, animate the bubbles out */
