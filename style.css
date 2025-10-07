@@ -2,10 +2,10 @@
 :root{
   --bg:#ffffff;
   --text:#1a1625;
-  --muted:#6b7280;
+  --muted:#4b5563;         /* darker for contrast */
   --border:#eadff5;
-  --primary:#e76ba6;
-  --primary-2:#a78bfa;
+  --primary:#b83280;       /* darker rose — passes with white */
+  --primary-2:#6d28d9;     /* deeper lilac */
 }
 
 *{ box-sizing: border-box; }
@@ -40,12 +40,21 @@ body{
   clip:rect(1px,1px,1px,1px); white-space:nowrap;
 }
 
+/* Focus outlines (keyboard) */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible {
+  outline:3px solid var(--primary-2);
+  outline-offset:3px;
+  border-radius:.6rem;
+}
+
 .mono{ font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace; }
 
 /* -------- Nav (centered links, no logo) -------- */
 .nav{
   position:sticky; top:0; z-index:50;
-  background-color:rgba(255,255,255,.85);
+  background-color:rgba(255,255,255,.92);
   border-bottom:1px solid var(--border);
 }
 .nav-inner{
@@ -64,24 +73,36 @@ body{
   align-items:center; padding:3.5rem 0 2rem;
 }
 .hello{ font-size:.95rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0; }
+
+/* solid text + gradient underline (contrast-friendly) */
 .name-gradient{
   margin:.25rem 0 .75rem;
   font-family:"Playfair Display",serif; font-weight:800; line-height:1.05;
-  background:linear-gradient(90deg,var(--primary) 0%, var(--primary-2) 100%);
-  -webkit-background-clip:text; background-clip:text; color:transparent;
+  color:var(--text);
   font-size:clamp(2.2rem,4.5vw,3.5rem);
+  position:relative;
 }
-.lead{ max-width:60ch; }
+.name-gradient::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:-.2rem; height:.4rem;
+  border-radius:.2rem;
+  background:linear-gradient(90deg,var(--primary) 0%, var(--primary-2) 100%);
+  opacity:.9;
+}
+
+.lead{ max-width:60ch; color:var(--text); }
 .actions{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }
 
+/* Buttons work for <a> and <button> */
 .btn{
   display:inline-block; font-weight:600; text-decoration:none; cursor:pointer;
   border-radius:.75rem; padding:.7rem 1rem; transition:.15s ease;
-  border:2px solid transparent;
+  border:2px solid transparent; line-height:1.2;
+  background:none; color:inherit;
 }
 .btn-primary{
   background:var(--primary); color:#fff; border-color:var(--primary);
-  box-shadow:0 10px 24px rgba(231,107,166,.25);
+  box-shadow:0 10px 24px rgba(184,50,128,.25);
 }
 .btn-primary:hover{ filter:brightness(.96); transform:translateY(-1px); }
 .btn-ghost{
@@ -90,7 +111,7 @@ body{
             linear-gradient(90deg,var(--primary),var(--primary-2)) border-box;
   border:2px solid transparent;
 }
-.btn-ghost:hover{ box-shadow:0 6px 20px rgba(167,139,250,.18); }
+.btn-ghost:hover{ box-shadow:0 6px 20px rgba(109,40,217,.18); }
 
 /* photo + rings */
 .pic-wrap{
@@ -129,13 +150,13 @@ body{
 }
 .pill-row{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.5rem; }
 .pill{
-  background:#fff; color:#312244; border:1px solid var(--border);
+  background:#fff; color:#1f1430; border:1px solid var(--border);
   border-radius:999px; padding:.4rem .8rem; font-weight:600; font-size:.95rem;
 }
 
 /* -------- Brain animation (triggered by .play) -------- */
 .brain-section{ text-align:center; }
-.brain-tip{ color:#6b5a84; font-size:.9rem; margin-top:.5rem; }
+.brain-tip{ color:#5b4d72; font-size:.9rem; margin-top:.5rem; }
 
 .brain-stage{
   position:relative;
@@ -152,9 +173,9 @@ body{
 .skill{
   position:absolute; top:50%; left:50%;
   transform:translate(-50%,-50%) scale(.4); opacity:0;
-  background:#fff; color:#312244; border:1px solid var(--border);
+  background:#fff; color:#1f1430; border:1px solid var(--border);
   border-radius:999px; padding:.55rem .9rem; font-weight:700; font-size:.95rem; white-space:nowrap;
-  box-shadow:0 6px 14px rgba(49,34,68,.08);
+  box-shadow:0 6px 14px rgba(31,20,48,.08);
 }
 
 /* When stage has .play, animate the bubbles out */
