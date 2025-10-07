@@ -43,7 +43,8 @@
 
         <div class="actions">
           <a class="btn btn-primary" href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact Me</a>
-          <a class="btn btn-ghost" id="brainBtn2" href="#brain">What’s in my Brain →</a>
+          <!-- changed to button to avoid “redundant link” -->
+          <button class="btn btn-ghost" id="brainBtn2" type="button">What’s in my Brain →</button>
         </div>
       </div>
 
@@ -121,7 +122,7 @@
     <p>© 2025 Tasneem Almuzian — UCI • Computer Science</p>
   </footer>
 
-  <!-- Tiny script: prevents hash-jump on refresh, plays animation on scroll and on button click -->
+  <!-- Script: prevent hash-jump on refresh, play animation on scroll/click -->
   <script>
     (function () {
       if (location.hash === '#brain') {
@@ -131,33 +132,40 @@
 
       const brain = document.getElementById('brain');
       const stage = brain.querySelector('.brain-stage');
-      const btns = [document.getElementById('brainBtn'), document.getElementById('brainBtn2')].filter(Boolean);
+      const triggers = [
+        document.getElementById('brainBtn'),
+        document.getElementById('brainBtn2')
+      ].filter(Boolean);
 
       function playBrain() {
         stage.classList.remove('play');
-        void stage.offsetWidth;         // reflow to restart animation
+        void stage.offsetWidth;               // reflow to restart animation
         stage.classList.add('play');
       }
 
-      // Click: smooth scroll then play
-      btns.forEach(b => b.addEventListener('click', (e) => {
-        e.preventDefault();
+      // Button / nav link -> smooth scroll + play
+      triggers.forEach(el => el.addEventListener('click', () => {
         brain.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setTimeout(playBrain, 250);
-        history.replaceState(null, '', '#brain'); // remove this line if you don't want #brain in URL
+        history.replaceState(null, '', '#brain'); // optional
       }));
 
-      // First time in view: play once
+      // Play once when first scrolled into view
       let playedOnce = false;
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((en) => {
-          if (en.isIntersecting && !playedOnce) {
-            playedOnce = true;
-            playBrain();
-          }
-        });
-      }, { threshold: 0.45 });
-      io.observe(brain);
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting && !playedOnce) {
+              playedOnce = true;
+              playBrain();
+            }
+          });
+        }, { threshold: 0.45 });
+        io.observe(brain);
+      } else {
+        // Fallback for very old browsers
+        stage.classList.add('play');
+      }
     })();
   </script>
 </body>
