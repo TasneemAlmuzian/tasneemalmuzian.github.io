@@ -1,26 +1,26 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>Tasneem Almuzian • Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="author" content="Tasneem Almuzian" />
-  <meta name="description" content="UCI CS student portfolio — interests in cybersecurity and HCI." />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Tasneem Almuzian">
+  <meta name="description" content="UCI CS student portfolio — interests in cybersecurity and HCI.">
 
   <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- NAV (logo removed) -->
-  <header class="nav" role="navigation" aria-label="Primary">
+  <!-- NAV (no role on header; nav already conveys semantics) -->
+  <header class="nav">
     <div class="nav-inner">
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Primary">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a id="brainBtn" href="#brain">What’s in my Brain</a>
@@ -48,12 +48,11 @@
       </div>
 
       <!-- YOUR PHOTO -->
-      <figure class="pic-wrap" aria-label="Portrait of Tasneem Almuzian">
-        <!-- make sure the file exists at images/tasneem.jpg -->
-        <img class="hero-pic" src="images/tasneem.jpg" alt="Portrait of Tasneem Almuzian" />
-        <figcaption class="visually-hidden">Tasneem Almuzian</figcaption>
+      <figure class="pic-wrap">
+        <img class="hero-pic" src="images/tasneem.jpg" alt="Portrait of Tasneem Almuzian">
         <div class="ring ring-1" aria-hidden="true"></div>
         <div class="ring ring-2" aria-hidden="true"></div>
+        <figcaption class="visually-hidden">Tasneem Almuzian</figcaption>
       </figure>
     </section>
 
@@ -107,14 +106,13 @@
     </section>
   </main>
 
-  <footer class="container footer" role="contentinfo">
+  <footer class="container footer">
     <p>© 2025 Tasneem Almuzian — UCI • Computer Science</p>
   </footer>
 
   <!-- Tiny script: prevents hash-jump on refresh, plays animation on scroll and on button click -->
   <script>
     (function () {
-      // If the page loaded with #brain in URL (e.g., from a previous visit), remove it so the page starts at the top.
       if (location.hash === '#brain') {
         history.replaceState(null, '', location.pathname + location.search);
         window.scrollTo(0, 0);
@@ -126,20 +124,17 @@
 
       function playBrain() {
         stage.classList.remove('play');
-        void stage.offsetWidth;   // reflow so animation can restart
+        void stage.offsetWidth;
         stage.classList.add('play');
       }
 
-      // Click: smooth scroll then play
       btns.forEach(b => b.addEventListener('click', (e) => {
         e.preventDefault();
         brain.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setTimeout(playBrain, 250);
-        // optional: show #brain in the URL without jumping
-        history.replaceState(null, '', '#brain');
+        history.replaceState(null, '', '#brain'); // remove this line if you don't want #brain in URL
       }));
 
-      // First time the section enters view: play once automatically
       let playedOnce = false;
       const io = new IntersectionObserver((entries) => {
         entries.forEach((en) => {
