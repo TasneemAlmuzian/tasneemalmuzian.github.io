@@ -17,7 +17,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- NAV (no role on header; nav already conveys semantics) -->
+  <!-- NAV -->
   <header class="nav">
     <div class="nav-inner">
       <nav class="nav-links" aria-label="Primary">
@@ -81,7 +81,6 @@
       <div class="brain-stage" role="group" aria-label="Animated skills">
         <div class="brain-core" role="img" aria-label="Brain">🧠</div>
 
-        <!-- CSS-only pop animation (triggered by JS adding .play to .brain-stage) -->
         <div class="skill s1">C++</div>
         <div class="skill s2">Java</div>
         <div class="skill s3">Python</div>
@@ -95,30 +94,26 @@
       <p class="mono brain-tip">tip: click the button to replay the animation.</p>
     </section>
 
-<section aria-labelledby="links-heading">
-  <h2 id="links-heading" class="section-title">Links</h2>
-  <ul class="link-list">
-    <li>
-      <a href="https://validator.w3.org/nu/?doc=https://tasneemalmuzian.github.io/">
-        Validate HTML
-      </a>
-    </li>
-    <li>
-      <a href="https://jigsaw.w3.org/css-validator/validator?uri=https://tasneemalmuzian.github.io/style.css&profile=css3svg&usermedium=all&warning=no">
-        Validate CSS
-      </a>
-    </li>
-    <li>
-      <a href="https://wave.webaim.org/report#/https://tasneemalmuzian.github.io/">
-        WAVE accessibility checker
-      </a>
-    </li>
-  </ul>
-</section>
-
-<footer class="container footer">
-  <p>© 2025 Tasneem Almuzian — UCI • Computer Science</p>
-</footer>
+    <!-- Validators (for rubric) -->
+    <section aria-labelledby="validation-links-heading">
+      <h2 id="validation-links-heading" class="section-title">Links</h2>
+      <ul class="link-list">
+        <li>
+          <a href="https://validator.w3.org/nu/?doc=https://tasneemalmuzian.github.io/">
+            Validate HTML
+          </a>
+        </li>
+        <li>
+          <a href="https://jigsaw.w3.org/css-validator/validator?profile=css3svg&usermedium=all&warning=no&uri=https%3A%2F%2Ftasneemalmuzian.github.io%2Fstyle.css">
+            Validate CSS
+          </a>
+        </li>
+        <li>
+          <a href="https://wave.webaim.org/report#/https://tasneemalmuzian.github.io/">
+            WAVE accessibility checker
+          </a>
+        </li>
+      </ul>
     </section>
   </main>
 
@@ -140,10 +135,11 @@
 
       function playBrain() {
         stage.classList.remove('play');
-        void stage.offsetWidth;
+        void stage.offsetWidth;         // reflow to restart animation
         stage.classList.add('play');
       }
 
+      // Click: smooth scroll then play
       btns.forEach(b => b.addEventListener('click', (e) => {
         e.preventDefault();
         brain.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -151,6 +147,7 @@
         history.replaceState(null, '', '#brain'); // remove this line if you don't want #brain in URL
       }));
 
+      // First time in view: play once
       let playedOnce = false;
       const io = new IntersectionObserver((entries) => {
         entries.forEach((en) => {
