@@ -1,1 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Tasneem Almuzian • Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Tasneem Almuzian" />
+  <meta name="description" content="UCI CS student portfolio — interests in cybersecurity and HCI." />
 
+  <!-- Google fonts (allowed; not “CSS files”) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Your stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Top navigation -->
+  <header class="nav" role="navigation" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="logo" href="#home">&lt;Tasneem&nbsp;Almuzian/&gt;</a>
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#brain">What’s in my Brain</a>
+        <a href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <!-- Hero -->
+    <section id="home" class="hero">
+      <div>
+        <p class="hello">hi, i’m</p>
+        <h1 class="name-gradient">Tasneem Almuzian</h1>
+        <p class="lead">
+          I’m a Computer Science undergrad at UC Irvine. I’m interested in
+          <strong>cybersecurity</strong> and <strong>human–computer interaction</strong>.
+          I like building clean, accessible websites and writing reliable code in C++ and Java.
+        </p>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact Me</a>
+          <a class="btn btn-ghost" href="#brain">What’s in my Brain →</a>
+        </div>
+
+        <p class="ticker mono" aria-hidden="true">
+          &lt;skills&gt; C++ · Java · Python · Cybersecurity · Web Dev · HCI · Git/GitHub · Data Structures &lt;/skills&gt;
+        </p>
+      </div>
+
+      <figure class="pic-wrap" aria-label="Portrait of Tasneem Almuzian">
+        <img class="hero-pic" src="images/tasneem.jpg" alt="Portrait of Tasneem Almuzian" />
+        <figcaption class="visually-hidden">Tasneem Almuzian</figcaption>
+        <div class="ring ring-1" aria-hidden="true"></div>
+        <div class="ring ring-2" aria-hidden="true"></div>
+      </figure>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <h2 class="section-title">About</h2>
+      <p>
+        I’m bilingual (English/Arabic) and focused on strong foundations in data structures, systems,
+        and web development. I enjoy turning requirements into simple, inclusive experiences that
+        work well on any device. I’m currently exploring security best practices and usable security in UI.
+      </p>
+
+      <div class="pill-row" role="list" aria-label="Quick facts">
+        <span class="pill" role="listitem">UCI • CS</span>
+        <span class="pill" role="listitem">Cybersecurity</span>
+        <span class="pill" role="listitem">HCI</span>
+        <span class="pill" role="listitem">C++/Java</span>
+        <span class="pill" role="listitem">Git/GitHub</span>
+      </div>
+    </section>
+
+    <!-- What’s in my Brain -->
+    <section id="brain" class="brain-section">
+      <h2 class="section-title">💭 What’s in my Brain?</h2>
+
+      <div class="brain-stage" role="group" aria-label="Animated skills">
+        <div class="brain-core" role="img" aria-label="Brain">🧠</div>
+
+        <!-- Skills pop out (CSS animation only) -->
+        <div class="skill s1">C++</div>
+        <div class="skill s2">Java</div>
+        <div class="skill s3">Python</div>
+        <div class="skill s4">Cybersecurity</div>
+        <div class="skill s5">Web&nbsp;Dev</div>
+        <div class="skill s6">HCI</div>
+        <div class="skill s7">Git/GitHub</div>
+        <div class="skill s8">Data&nbsp;Structures</div>
+      </div>
+
+      <p class="mono brain-tip">tip: this animation runs on page load — pure CSS, no JavaScript.</p>
+    </section>
+
+    <!-- Links for the assignment validators -->
+    <section aria-labelledby="links-heading">
+      <h2 id="links-heading" class="section-title">Links</h2>
+      <ul class="link-list">
+        <li><a href="https://validator.w3.org/check?uri=referer">Validate HTML</a></li>
+        <li><a href="https://jigsaw.w3.org/css-validator/validator">Validate CSS</a></li>
+        <li><a href="https://wave.webaim.org/">WAVE accessibility checker</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="container footer" role="contentinfo">
+    <p>© 2025 Tasneem Almuzian — UCI • Computer Science</p>
+  </footer>
+</body>
+</html>
