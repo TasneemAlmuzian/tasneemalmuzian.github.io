@@ -17,13 +17,13 @@
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- NAV -->
+  <!-- Header / primary nav -->
   <header class="nav">
     <div class="nav-inner">
       <nav class="nav-links">
         <a href="#home">Home</a>
         <a href="#about">About</a>
-        <a id="brainBtn" href="#brain">What’s in my Brain</a>
+        <a id="brainNavLink" href="#brain">What’s in my Brain</a>
         <a href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact</a>
       </nav>
     </div>
@@ -43,16 +43,16 @@
 
         <div class="actions">
           <a class="btn btn-primary" href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact Me</a>
-          <!-- button instead of duplicate link to avoid “redundant link” -->
-          <button class="btn btn-ghost" id="brainBtn2" type="button">What’s in my Brain →</button>
+          <!-- button (not a second identical link) -->
+          <button class="btn btn-ghost" id="brainBtn" type="button">What’s in my Brain →</button>
         </div>
       </div>
 
       <!-- PHOTO -->
       <figure class="pic-wrap">
         <img class="hero-pic" src="images/tasneem.jpg" alt="Portrait of Tasneem Almuzian">
-        <div class="ring ring-1" aria-hidden="true"></div>
-        <div class="ring ring-2" aria-hidden="true"></div>
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
         <figcaption class="visually-hidden">Tasneem Almuzian</figcaption>
       </figure>
     </section>
@@ -66,8 +66,8 @@
         work on any device. I’m exploring security best practices and usable security in UI.
       </p>
 
-      <!-- use real list semantics (no ARIA roles) -->
-      <ul class="pill-row" aria-label="Quick facts">
+      <!-- real list semantics; no ARIA -->
+      <ul class="pill-row">
         <li class="pill">UCI • CS</li>
         <li class="pill">Cybersecurity</li>
         <li class="pill">HCI</li>
@@ -77,10 +77,9 @@
     </section>
 
     <!-- WHAT’S IN MY BRAIN -->
-    <section id="brain" class="brain-section" aria-labelledby="brain-heading">
-      <h2 id="brain-heading" class="section-title">💭 What’s in my Brain?</h2>
+    <section id="brain" class="brain-section">
+      <h2 class="section-title">💭 What’s in my Brain?</h2>
 
-      <!-- remove extra ARIA; keep it simple -->
       <div class="brain-stage">
         <div class="brain-core" aria-hidden="true">🧠</div>
 
@@ -97,25 +96,13 @@
       <p class="mono brain-tip">tip: click the button to replay the animation.</p>
     </section>
 
-    <!-- Validator links (for your rubric) -->
-    <section aria-labelledby="validation-links-heading">
-      <h2 id="validation-links-heading" class="section-title">Links</h2>
+    <!-- Validator links (kept for rubric) -->
+    <section id="validation-links">
+      <h2 class="section-title">Links</h2>
       <ul class="link-list">
-        <li>
-          <a href="https://validator.w3.org/nu/?doc=https://tasneemalmuzian.github.io/">
-            Validate HTML
-          </a>
-        </li>
-        <li>
-          <a href="https://jigsaw.w3.org/css-validator/validator?profile=css3svg&usermedium=all&warning=no&uri=https%3A%2F%2Ftasneemalmuzian.github.io%2Fstyle.css">
-            Validate CSS
-          </a>
-        </li>
-        <li>
-          <a href="https://wave.webaim.org/report#/https://tasneemalmuzian.github.io/">
-            WAVE accessibility checker
-          </a>
-        </li>
+        <li><a href="https://validator.w3.org/nu/?doc=https://tasneemalmuzian.github.io/">Validate HTML</a></li>
+        <li><a href="https://jigsaw.w3.org/css-validator/validator?profile=css3svg&usermedium=all&warning=no&uri=https%3A%2F%2Ftasneemalmuzian.github.io%2Fstyle.css">Validate CSS</a></li>
+        <li><a href="https://wave.webaim.org/report#/https://tasneemalmuzian.github.io/">WAVE accessibility checker</a></li>
       </ul>
     </section>
   </main>
@@ -124,7 +111,7 @@
     <p>© 2025 Tasneem Almuzian — UCI • Computer Science</p>
   </footer>
 
-  <!-- Script: prevent hash-jump on refresh, play animation on scroll/click -->
+  <!-- Script: stop hash jump on refresh; play animation on scroll/click -->
   <script>
     (function () {
       if (location.hash === '#brain') {
@@ -134,23 +121,23 @@
 
       const brain = document.getElementById('brain');
       const stage = brain.querySelector('.brain-stage');
-      const triggers = [
-        document.getElementById('brainBtn'),
-        document.getElementById('brainBtn2')
-      ].filter(Boolean);
+      const triggers = [document.getElementById('brainNavLink'), document.getElementById('brainBtn')].filter(Boolean);
 
       function playBrain() {
         stage.classList.remove('play');
-        void stage.offsetWidth;
+        void stage.offsetWidth;   // restart animation
         stage.classList.add('play');
       }
 
-      triggers.forEach(el => el.addEventListener('click', () => {
+      // button or nav link -> smooth scroll + play
+      triggers.forEach(el => el.addEventListener('click', (e) => {
+        if (el.tagName === 'BUTTON') e.preventDefault();
         brain.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setTimeout(playBrain, 250);
-        history.replaceState(null, '', '#brain'); // optional
+        history.replaceState(null, '', '#brain'); // optional hash
       }));
 
+      // play once when first scrolled into view
       let playedOnce = false;
       if ('IntersectionObserver' in window) {
         const io = new IntersectionObserver((entries) => {
