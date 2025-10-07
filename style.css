@@ -1,14 +1,14 @@
-/* -------- Theme & base -------- */
+/* -------- Theme & base (high-contrast) -------- */
 :root{
   --bg:#ffffff;
-  --text:#1a1625;
-  --muted:#4b5563;         /* darker for contrast */
+  --text:#111827;         /* very dark */
+  --muted:#374151;        /* darker than before for contrast */
   --border:#eadff5;
-  --primary:#b83280;       /* darker rose — passes with white */
-  --primary-2:#6d28d9;     /* deeper lilac */
+  --primary:#9d174d;      /* deep rose (white text passes) */
+  --primary-2:#5b21b6;    /* deeper lilac */
 }
 
-*{ box-sizing: border-box; }
+*{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
 body{
   margin:0;
@@ -19,13 +19,15 @@ body{
     radial-gradient(60% 50% at 90% 0%, #f4f0ff 0%, transparent 55%),
     #ffffff;
   line-height:1.6;
-
-  /* stop horizontal scrolling */
   max-width:100vw;
   overflow-x:hidden;
 }
 
 .container{ max-width:1100px; margin:0 auto; padding:0 1rem; }
+
+/* Links (visited colors set so they also pass) */
+a{ color:#1d4ed8; }
+a:visited{ color:#6d28d9; }
 
 /* accessibility helpers */
 .skip-link{
@@ -40,7 +42,7 @@ body{
   clip:rect(1px,1px,1px,1px); white-space:nowrap;
 }
 
-/* Focus outlines (keyboard) */
+/* Focus outlines */
 a:focus-visible,
 button:focus-visible,
 .btn:focus-visible {
@@ -49,19 +51,17 @@ button:focus-visible,
   border-radius:.6rem;
 }
 
-.mono{ font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace; }
-
-/* -------- Nav (centered links, no logo) -------- */
+/* -------- Nav -------- */
 .nav{
   position:sticky; top:0; z-index:50;
-  background-color:rgba(255,255,255,.92);
+  background-color:rgba(255,255,255,.95);
   border-bottom:1px solid var(--border);
 }
 .nav-inner{
   max-width:1100px; margin:0 auto; padding:.75rem 1rem;
   display:flex; align-items:center; justify-content:center;
 }
-.nav-links{ display:flex; gap:.5rem; flex-wrap:wrap; }
+.nav-links{ display:flex; gap:.75rem; flex-wrap:wrap; }
 .nav-links a{
   color:var(--text); text-decoration:none; padding:.4rem .6rem; border-radius:.5rem;
 }
@@ -87,13 +87,13 @@ button:focus-visible,
   position:absolute; left:0; right:0; bottom:-.2rem; height:.4rem;
   border-radius:.2rem;
   background:linear-gradient(90deg,var(--primary) 0%, var(--primary-2) 100%);
-  opacity:.9;
+  opacity:.95;
 }
 
 .lead{ max-width:60ch; color:var(--text); }
 .actions{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }
 
-/* Buttons work for <a> and <button> */
+/* Buttons (anchor or button) */
 .btn{
   display:inline-block; font-weight:600; text-decoration:none; cursor:pointer;
   border-radius:.75rem; padding:.7rem 1rem; transition:.15s ease;
@@ -102,7 +102,7 @@ button:focus-visible,
 }
 .btn-primary{
   background:var(--primary); color:#fff; border-color:var(--primary);
-  box-shadow:0 10px 24px rgba(184,50,128,.25);
+  box-shadow:0 10px 24px rgba(157,23,77,.25);
 }
 .btn-primary:hover{ filter:brightness(.96); transform:translateY(-1px); }
 .btn-ghost{
@@ -111,7 +111,7 @@ button:focus-visible,
             linear-gradient(90deg,var(--primary),var(--primary-2)) border-box;
   border:2px solid transparent;
 }
-.btn-ghost:hover{ box-shadow:0 6px 20px rgba(109,40,217,.18); }
+.btn-ghost:hover{ box-shadow:0 6px 20px rgba(91,33,182,.18); }
 
 /* photo + rings */
 .pic-wrap{
@@ -121,13 +121,13 @@ button:focus-visible,
 .hero-pic{
   display:block; width:min(70vw,300px); height:min(70vw,300px);
   object-fit:cover;
-  object-position: 40% 38%; /* first value left/right, second up/down */
+  object-position:40% 38%;
   border-radius:50%;
 }
 .ring{ position:absolute; border-radius:50%; pointer-events:none; }
 .ring-1{ inset:-8px; border:2px dashed var(--border); animation:spin 14s linear infinite; }
 
-/* Validator-friendly colorful donut ring (no mask) */
+/* ring without mask (validator-friendly) */
 .ring-2{
   inset:-18px;
   position:absolute;
@@ -148,15 +148,19 @@ button:focus-visible,
   font-family:"Playfair Display",serif; font-weight:800;
   border-bottom:1px solid var(--border); padding-bottom:.35rem; margin:1.25rem 0 .9rem;
 }
-.pill-row{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.5rem; }
+
+/* real list semantics */
+.pill-row{
+  list-style:none; padding-left:0; margin:.5rem 0 0; display:flex; flex-wrap:wrap; gap:.5rem;
+}
 .pill{
-  background:#fff; color:#1f1430; border:1px solid var(--border);
+  background:#fff; color:#111827; border:1px solid var(--border);
   border-radius:999px; padding:.4rem .8rem; font-weight:600; font-size:.95rem;
 }
 
-/* -------- Brain animation (triggered by .play) -------- */
+/* -------- Brain animation -------- */
 .brain-section{ text-align:center; }
-.brain-tip{ color:#5b4d72; font-size:.9rem; margin-top:.5rem; }
+.brain-tip{ color:#4c3f67; font-size:.9rem; margin-top:.5rem; }
 
 .brain-stage{
   position:relative;
@@ -173,15 +177,14 @@ button:focus-visible,
 .skill{
   position:absolute; top:50%; left:50%;
   transform:translate(-50%,-50%) scale(.4); opacity:0;
-  background:#fff; color:#1f1430; border:1px solid var(--border);
+  background:#fff; color:#111827; border:1px solid #e5e7eb;
   border-radius:999px; padding:.55rem .9rem; font-weight:700; font-size:.95rem; white-space:nowrap;
-  box-shadow:0 6px 14px rgba(31,20,48,.08);
+  box-shadow:0 6px 14px rgba(17,24,39,.08);
 }
 
-/* When stage has .play, animate the bubbles out */
 .brain-stage.play .skill{
-  animation: pop 820ms cubic-bezier(.2,.7,.2,1) forwards;
-  animation-delay: var(--d, 0s);
+  animation:pop 820ms cubic-bezier(.2,.7,.2,1) forwards;
+  animation-delay:var(--d,0s);
 }
 
 .s1{ --top:10%;  --left:50%;  --d:.15s; }
@@ -208,7 +211,7 @@ button:focus-visible,
 
 /* reduce-motion */
 @media (prefers-reduced-motion: reduce){
-  .ring-1, .ring-2, .brain-stage.play .skill { animation: none; }
+  .ring-1, .ring-2, .brain-stage.play .skill { animation:none; }
   .s1{ top:10%; left:50%; } .s2{ top:22%; left:80%; }
   .s3{ top:50%; left:92%; } .s4{ top:78%; left:78%; }
   .s5{ top:90%; left:50%; } .s6{ top:78%; left:22%; }
