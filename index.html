@@ -20,7 +20,7 @@
   <!-- NAV -->
   <header class="nav">
     <div class="nav-inner">
-      <nav class="nav-links" aria-label="Primary">
+      <nav class="nav-links">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a id="brainBtn" href="#brain">What’s in my Brain</a>
@@ -43,12 +43,12 @@
 
         <div class="actions">
           <a class="btn btn-primary" href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact Me</a>
-          <!-- changed to button to avoid “redundant link” -->
+          <!-- button instead of duplicate link to avoid “redundant link” -->
           <button class="btn btn-ghost" id="brainBtn2" type="button">What’s in my Brain →</button>
         </div>
       </div>
 
-      <!-- YOUR PHOTO -->
+      <!-- PHOTO -->
       <figure class="pic-wrap">
         <img class="hero-pic" src="images/tasneem.jpg" alt="Portrait of Tasneem Almuzian">
         <div class="ring ring-1" aria-hidden="true"></div>
@@ -66,21 +66,23 @@
         work on any device. I’m exploring security best practices and usable security in UI.
       </p>
 
-      <div class="pill-row" role="list" aria-label="Quick facts">
-        <span class="pill" role="listitem">UCI • CS</span>
-        <span class="pill" role="listitem">Cybersecurity</span>
-        <span class="pill" role="listitem">HCI</span>
-        <span class="pill" role="listitem">C++/Java</span>
-        <span class="pill" role="listitem">Git/GitHub</span>
-      </div>
+      <!-- use real list semantics (no ARIA roles) -->
+      <ul class="pill-row" aria-label="Quick facts">
+        <li class="pill">UCI • CS</li>
+        <li class="pill">Cybersecurity</li>
+        <li class="pill">HCI</li>
+        <li class="pill">C++/Java</li>
+        <li class="pill">Git/GitHub</li>
+      </ul>
     </section>
 
     <!-- WHAT’S IN MY BRAIN -->
-    <section id="brain" class="brain-section">
-      <h2 class="section-title">💭 What’s in my Brain?</h2>
+    <section id="brain" class="brain-section" aria-labelledby="brain-heading">
+      <h2 id="brain-heading" class="section-title">💭 What’s in my Brain?</h2>
 
-      <div class="brain-stage" role="group" aria-label="Animated skills">
-        <div class="brain-core" role="img" aria-label="Brain">🧠</div>
+      <!-- remove extra ARIA; keep it simple -->
+      <div class="brain-stage">
+        <div class="brain-core" aria-hidden="true">🧠</div>
 
         <div class="skill s1">C++</div>
         <div class="skill s2">Java</div>
@@ -95,7 +97,7 @@
       <p class="mono brain-tip">tip: click the button to replay the animation.</p>
     </section>
 
-    <!-- Validators (for rubric) -->
+    <!-- Validator links (for your rubric) -->
     <section aria-labelledby="validation-links-heading">
       <h2 id="validation-links-heading" class="section-title">Links</h2>
       <ul class="link-list">
@@ -139,18 +141,16 @@
 
       function playBrain() {
         stage.classList.remove('play');
-        void stage.offsetWidth;               // reflow to restart animation
+        void stage.offsetWidth;
         stage.classList.add('play');
       }
 
-      // Button / nav link -> smooth scroll + play
       triggers.forEach(el => el.addEventListener('click', () => {
         brain.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setTimeout(playBrain, 250);
         history.replaceState(null, '', '#brain'); // optional
       }));
 
-      // Play once when first scrolled into view
       let playedOnce = false;
       if ('IntersectionObserver' in window) {
         const io = new IntersectionObserver((entries) => {
@@ -163,7 +163,6 @@
         }, { threshold: 0.45 });
         io.observe(brain);
       } else {
-        // Fallback for very old browsers
         stage.classList.add('play');
       }
     })();
