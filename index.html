@@ -7,7 +7,6 @@
   <meta name="author" content="Tasneem Almuzian">
   <meta name="description" content="UCI CS student portfolio — interests in cybersecurity and HCI.">
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -19,16 +18,17 @@
 
   <header class="nav">
     <div class="nav-inner">
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Primary">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a id="brainBtn" href="#brain">What’s in my Brain</a>
-        <a href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact</a>
+        <a href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem" aria-label="Contact Tasneem Almuzian by email">Contact</a>
       </nav>
     </div>
   </header>
 
   <main id="main" class="container">
+    <!-- HERO -->
     <section id="home" class="hero">
       <div>
         <p class="hello">hi, i’m</p>
@@ -40,11 +40,7 @@
         </p>
 
         <div class="actions">
-          <a
-            class="btn btn-primary"
-            href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem"
-            aria-label="Contact Tasneem Almuzian by email"
-          >Contact Me</a>
+          <a class="btn btn-primary" href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem" aria-label="Contact Tasneem Almuzian by email">Contact Me</a>
           <a class="btn btn-ghost" id="brainBtn2" href="#brain">What’s in my Brain →</a>
         </div>
       </div>
@@ -57,15 +53,16 @@
       </figure>
     </section>
 
+    <!-- ABOUT -->
     <section id="about">
       <h2 class="section-title">About</h2>
       <p>
         I’m bilingual (English/Arabic) and focused on strong foundations in data structures, systems,
         and web development. I like turning requirements into simple, inclusive experiences that
-        work on any device. I’m currently exploring security best practices and usable security in UI.
+        work on any device. I’m exploring security best practices and usable security in UI.
       </p>
 
-      <ul class="pill-row">
+      <ul class="pill-row" aria-label="Quick facts">
         <li class="pill">UCI • CS</li>
         <li class="pill">Cybersecurity</li>
         <li class="pill">HCI</li>
@@ -74,10 +71,11 @@
       </ul>
     </section>
 
+    <!-- BRAIN -->
     <section id="brain" class="brain-section">
       <h2 class="section-title">💭 What’s in my Brain?</h2>
 
-      <div class="brain-stage">
+      <div class="brain-stage" aria-label="Animated skills">
         <div class="brain-core" role="img" aria-label="Brain illustration">🧠</div>
 
         <div class="skill s1"><span class="skill__label">C++</span></div>
@@ -93,6 +91,7 @@
       <p class="mono brain-tip">tip: click the button to replay the animation.</p>
     </section>
 
+    <!-- LINKS -->
     <section>
       <h2 class="section-title">Links</h2>
       <ul class="link-list">
@@ -138,10 +137,17 @@
             playBrain();
           }
         });
-      }, { threshold: 0.45 });
+      }, { threshold: 0.2 });
       io.observe(brain);
 
-      document.getElementById('year').textContent = new Date().getFullYear();
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          if (!stage.classList.contains('play')) playBrain();
+        }, 400);
+      });
+
+      const y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
     })();
   </script>
 </body>
