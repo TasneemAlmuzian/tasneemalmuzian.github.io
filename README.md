@@ -56,7 +56,7 @@ A few small warnings (like duplicate internal anchors) are intentional and donâ€
 
 ## 4. Time spent
 
-I spent about **6â€“7 hours total**, including planning, coding, styling, fixing layout issues, and validating HTML/CSS.
+I spent about **12 hours total**, including planning, coding, styling, fixing layout issues, and validating HTML/CSS.
 
 ---
 
