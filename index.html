@@ -17,13 +17,13 @@
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- Header / primary nav -->
+  <!-- Header / Nav -->
   <header class="nav">
     <div class="nav-inner">
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Primary">
         <a href="#home">Home</a>
         <a href="#about">About</a>
-        <a id="brainNavLink" href="#brain">What’s in my Brain</a>
+        <a id="brainBtn" href="#brain">What’s in my Brain</a>
         <a href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact</a>
       </nav>
     </div>
@@ -38,21 +38,20 @@
         <p class="lead">
           I’m a Computer Science undergrad at UC Irvine. I’m interested in
           <strong>cybersecurity</strong> and <strong>human–computer interaction</strong>.
-          I like building clean, accessible websites and writing reliable code.
+          I like building clean, accessible websites and writing reliable code in C++ and Java.
         </p>
 
         <div class="actions">
           <a class="btn btn-primary" href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact Me</a>
-          <!-- button (not a second identical link) -->
-          <button class="btn btn-ghost" id="brainBtn" type="button">What’s in my Brain →</button>
+          <a class="btn btn-ghost" id="brainBtn2" href="#brain">What’s in my Brain →</a>
         </div>
       </div>
 
-      <!-- PHOTO -->
+      <!-- Photo + animated rings -->
       <figure class="pic-wrap">
         <img class="hero-pic" src="images/tasneem.jpg" alt="Portrait of Tasneem Almuzian">
-        <div class="ring ring-1"></div>
-        <div class="ring ring-2"></div>
+        <div class="ring ring-1" aria-hidden="true"></div>
+        <div class="ring ring-2" aria-hidden="true"></div>
         <figcaption class="visually-hidden">Tasneem Almuzian</figcaption>
       </figure>
     </section>
@@ -66,8 +65,7 @@
         work on any device. I’m exploring security best practices and usable security in UI.
       </p>
 
-      <!-- real list semantics; no ARIA -->
-      <ul class="pill-row">
+      <ul class="pill-row" aria-label="Quick facts">
         <li class="pill">UCI • CS</li>
         <li class="pill">Cybersecurity</li>
         <li class="pill">HCI</li>
@@ -80,40 +78,43 @@
     <section id="brain" class="brain-section">
       <h2 class="section-title">💭 What’s in my Brain?</h2>
 
-      <div class="brain-stage">
-        <div class="brain-core" aria-hidden="true">🧠</div>
+      <div class="brain-stage" role="group" aria-label="Animated skills">
+        <!-- brain is announced as an image (not hidden) -->
+        <div class="brain-core" role="img" aria-label="Brain illustration">🧠</div>
 
-        <div class="skill s1">C++</div>
-        <div class="skill s2">Java</div>
-        <div class="skill s3">Python</div>
-        <div class="skill s4">Cybersecurity</div>
-        <div class="skill s5">Web&nbsp;Dev</div>
-        <div class="skill s6">HCI</div>
-        <div class="skill s7">Git/GitHub</div>
-        <div class="skill s8">Data&nbsp;Structures</div>
+        <!-- Each skill uses an opaque label to guarantee contrast -->
+        <div class="skill s1"><span class="skill__label">C++</span></div>
+        <div class="skill s2"><span class="skill__label">Java</span></div>
+        <div class="skill s3"><span class="skill__label">Python</span></div>
+        <div class="skill s4"><span class="skill__label">Cybersecurity</span></div>
+        <div class="skill s5"><span class="skill__label">Web&nbsp;Dev</span></div>
+        <div class="skill s6"><span class="skill__label">HCI</span></div>
+        <div class="skill s7"><span class="skill__label">Git/GitHub</span></div>
+        <div class="skill s8"><span class="skill__label">Data&nbsp;Structures</span></div>
       </div>
 
       <p class="mono brain-tip">tip: click the button to replay the animation.</p>
     </section>
 
-    <!-- Validator links (kept for rubric) -->
-    <section id="validation-links">
-      <h2 class="section-title">Links</h2>
+    <!-- Links for validators -->
+    <section aria-labelledby="validation-links-heading">
+      <h2 id="validation-links-heading" class="section-title">Links</h2>
       <ul class="link-list">
         <li><a href="https://validator.w3.org/nu/?doc=https://tasneemalmuzian.github.io/">Validate HTML</a></li>
-        <li><a href="https://jigsaw.w3.org/css-validator/validator?profile=css3svg&usermedium=all&warning=no&uri=https%3A%2F%2Ftasneemalmuzian.github.io%2Fstyle.css">Validate CSS</a></li>
+        <li><a href="https://jigsaw.w3.org/css-validator/validator?uri=https://tasneemalmuzian.github.io/style.css&profile=css3svg&usermedium=all&warning=no">Validate CSS</a></li>
         <li><a href="https://wave.webaim.org/report#/https://tasneemalmuzian.github.io/">WAVE accessibility checker</a></li>
       </ul>
     </section>
   </main>
 
   <footer class="container footer">
-    <p>© 2025 Tasneem Almuzian — UCI • Computer Science</p>
+    <p>© <span id="year">2025</span> Tasneem Almuzian — UCI • Computer Science</p>
   </footer>
 
-  <!-- Script: stop hash jump on refresh; play animation on scroll/click -->
+  <!-- Tiny script: prevents hash-jump on refresh, plays animation on scroll and on button click -->
   <script>
     (function () {
+      // avoid landing mid-page if URL has #brain on reload
       if (location.hash === '#brain') {
         history.replaceState(null, '', location.pathname + location.search);
         window.scrollTo(0, 0);
@@ -121,37 +122,33 @@
 
       const brain = document.getElementById('brain');
       const stage = brain.querySelector('.brain-stage');
-      const triggers = [document.getElementById('brainNavLink'), document.getElementById('brainBtn')].filter(Boolean);
+      const btns = [document.getElementById('brainBtn'), document.getElementById('brainBtn2')].filter(Boolean);
 
       function playBrain() {
-        stage.classList.remove('play');
-        void stage.offsetWidth;   // restart animation
-        stage.classList.add('play');
+        stage.classList.remove('play');         // reset
+        void stage.offsetWidth;                 // reflow
+        stage.classList.add('play');            // play
       }
 
-      // button or nav link -> smooth scroll + play
-      triggers.forEach(el => el.addEventListener('click', (e) => {
-        if (el.tagName === 'BUTTON') e.preventDefault();
+      btns.forEach(b => b.addEventListener('click', (e) => {
+        e.preventDefault();
         brain.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setTimeout(playBrain, 250);
-        history.replaceState(null, '', '#brain'); // optional hash
       }));
 
-      // play once when first scrolled into view
       let playedOnce = false;
-      if ('IntersectionObserver' in window) {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((en) => {
-            if (en.isIntersecting && !playedOnce) {
-              playedOnce = true;
-              playBrain();
-            }
-          });
-        }, { threshold: 0.45 });
-        io.observe(brain);
-      } else {
-        stage.classList.add('play');
-      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting && !playedOnce) {
+            playedOnce = true;
+            playBrain();
+          }
+        });
+      }, { threshold: 0.45 });
+      io.observe(brain);
+
+      // year
+      document.getElementById('year').textContent = new Date().getFullYear();
     })();
   </script>
 </body>
