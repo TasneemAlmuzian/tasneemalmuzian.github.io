@@ -17,10 +17,9 @@
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- Header / Nav -->
   <header class="nav">
     <div class="nav-inner">
-      <nav class="nav-links" aria-label="Primary">
+      <nav class="nav-links">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a id="brainBtn" href="#brain">What’s in my Brain</a>
@@ -30,7 +29,6 @@
   </header>
 
   <main id="main" class="container">
-    <!-- HERO -->
     <section id="home" class="hero">
       <div>
         <p class="hello">hi, i’m</p>
@@ -42,12 +40,15 @@
         </p>
 
         <div class="actions">
-          <a class="btn btn-primary" href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact Me</a>
+          <a
+            class="btn btn-primary"
+            href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem"
+            aria-label="Contact Tasneem Almuzian by email"
+          >Contact Me</a>
           <a class="btn btn-ghost" id="brainBtn2" href="#brain">What’s in my Brain →</a>
         </div>
       </div>
 
-      <!-- Photo + animated rings -->
       <figure class="pic-wrap">
         <img class="hero-pic" src="images/tasneem.jpg" alt="Portrait of Tasneem Almuzian">
         <div class="ring ring-1" aria-hidden="true"></div>
@@ -56,16 +57,15 @@
       </figure>
     </section>
 
-    <!-- ABOUT -->
     <section id="about">
       <h2 class="section-title">About</h2>
       <p>
         I’m bilingual (English/Arabic) and focused on strong foundations in data structures, systems,
-        and web development. I enjoy turning requirements into simple, inclusive experiences that
-        work on any device. I’m exploring security best practices and usable security in UI.
+        and web development. I like turning requirements into simple, inclusive experiences that
+        work on any device. I’m currently exploring security best practices and usable security in UI.
       </p>
 
-      <ul class="pill-row" aria-label="Quick facts">
+      <ul class="pill-row">
         <li class="pill">UCI • CS</li>
         <li class="pill">Cybersecurity</li>
         <li class="pill">HCI</li>
@@ -74,15 +74,12 @@
       </ul>
     </section>
 
-    <!-- WHAT’S IN MY BRAIN -->
     <section id="brain" class="brain-section">
       <h2 class="section-title">💭 What’s in my Brain?</h2>
 
-      <div class="brain-stage" role="group" aria-label="Animated skills">
-        <!-- brain is announced as an image (not hidden) -->
+      <div class="brain-stage">
         <div class="brain-core" role="img" aria-label="Brain illustration">🧠</div>
 
-        <!-- Each skill uses an opaque label to guarantee contrast -->
         <div class="skill s1"><span class="skill__label">C++</span></div>
         <div class="skill s2"><span class="skill__label">Java</span></div>
         <div class="skill s3"><span class="skill__label">Python</span></div>
@@ -96,9 +93,8 @@
       <p class="mono brain-tip">tip: click the button to replay the animation.</p>
     </section>
 
-    <!-- Links for validators -->
-    <section aria-labelledby="validation-links-heading">
-      <h2 id="validation-links-heading" class="section-title">Links</h2>
+    <section>
+      <h2 class="section-title">Links</h2>
       <ul class="link-list">
         <li><a href="https://validator.w3.org/nu/?doc=https://tasneemalmuzian.github.io/">Validate HTML</a></li>
         <li><a href="https://jigsaw.w3.org/css-validator/validator?uri=https://tasneemalmuzian.github.io/style.css&profile=css3svg&usermedium=all&warning=no">Validate CSS</a></li>
@@ -111,10 +107,8 @@
     <p>© <span id="year">2025</span> Tasneem Almuzian — UCI • Computer Science</p>
   </footer>
 
-  <!-- Tiny script: prevents hash-jump on refresh, plays animation on scroll and on button click -->
   <script>
     (function () {
-      // avoid landing mid-page if URL has #brain on reload
       if (location.hash === '#brain') {
         history.replaceState(null, '', location.pathname + location.search);
         window.scrollTo(0, 0);
@@ -122,15 +116,15 @@
 
       const brain = document.getElementById('brain');
       const stage = brain.querySelector('.brain-stage');
-      const btns = [document.getElementById('brainBtn'), document.getElementById('brainBtn2')].filter(Boolean);
+      const triggers = [document.getElementById('brainBtn'), document.getElementById('brainBtn2')].filter(Boolean);
 
       function playBrain() {
-        stage.classList.remove('play');         // reset
-        void stage.offsetWidth;                 // reflow
-        stage.classList.add('play');            // play
+        stage.classList.remove('play');
+        void stage.offsetWidth;
+        stage.classList.add('play');
       }
 
-      btns.forEach(b => b.addEventListener('click', (e) => {
+      triggers.forEach(el => el.addEventListener('click', (e) => {
         e.preventDefault();
         brain.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setTimeout(playBrain, 250);
@@ -147,7 +141,6 @@
       }, { threshold: 0.45 });
       io.observe(brain);
 
-      // year
       document.getElementById('year').textContent = new Date().getFullYear();
     })();
   </script>
