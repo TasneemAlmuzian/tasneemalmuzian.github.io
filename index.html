@@ -54,6 +54,7 @@
       <figure class="pic-wrap">
         <img class="hero-pic" src="images/tasneem.jpg" alt="Portrait of Tasneem Almuzian">
         <div class="ring ring-1" aria-hidden="true"></div>
+        <div class="ring ring-2" aria-hidden="true"></div>
         <figcaption class="visually-hidden">Tasneem Almuzian</figcaption>
       </figure>
     </section>
@@ -86,8 +87,8 @@
       <input type="checkbox" id="brainToggle" class="visually-hidden" aria-hidden="true">
       <label for="brainToggle" class="btn btn-ghost" style="margin-top:.25rem">Replay animation</label>
 
-      <!-- NOTE: no JS. Scroll triggers the animation in CSS. -->
-      <div class="brain-stage" role="group" aria-labelledby="brain-heading">
+      <!-- 'animate' = first run on load (no JS) -->
+      <div class="brain-stage animate" role="group" aria-labelledby="brain-heading">
         <div class="brain-core" role="img" aria-label="Brain illustration">🧠</div>
 
         <div class="skill s1"><span class="skill__label">C++</span></div>
@@ -100,10 +101,10 @@
         <div class="skill s8"><span class="skill__label">Data&nbsp;Structures</span></div>
       </div>
 
-      <p class="brain-tip">tip: scroll to this section to see the pop; click “Replay animation” to see it again.</p>
+      <p class="brain-tip">tip: click “Replay animation” to see the pop again.</p>
     </section>
 
-    <!-- LINKS (point to YOUR site) -->
+    <!-- LINKS (now point to YOUR site) -->
     <section>
       <h2 class="section-title">Links</h2>
       <ul class="link-list">
