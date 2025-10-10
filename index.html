@@ -21,7 +21,7 @@
       <nav class="nav-links" aria-label="Primary">
         <a href="#home">Home</a>
         <a href="#about">About</a>
-        <a id="brainBtn" href="#brain">What’s in my Brain</a>
+        <a href="#brain">What’s in my Brain</a>
         <a href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem" aria-label="Contact Tasneem Almuzian by email">Contact</a>
       </nav>
     </div>
@@ -41,7 +41,7 @@
 
         <div class="actions">
           <a class="btn btn-primary" href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem" aria-label="Contact Tasneem Almuzian by email">Contact Me</a>
-          <a class="btn btn-ghost" id="brainBtn2" href="#brain">What’s in my Brain →</a>
+          <a class="btn btn-ghost" href="#brain">What’s in my Brain →</a>
         </div>
       </div>
 
@@ -63,19 +63,19 @@
       </p>
 
       <ul class="pill-row" aria-label="Personality and values">
-  <li class="pill">Determined</li>
-  <li class="pill">Creative Thinker</li>
-  <li class="pill">Problem Solver</li>
-  <li class="pill">Detail-Oriented</li>
-  <li class="pill">Team Player</li>
-  <li class="pill">Resilient</li>
-  <li class="pill">Always Learning</li>
-</ul>
+        <li class="pill">Determined</li>
+        <li class="pill">Creative Thinker</li>
+        <li class="pill">Problem Solver</li>
+        <li class="pill">Detail-Oriented</li>
+        <li class="pill">Team Player</li>
+        <li class="pill">Resilient</li>
+        <li class="pill">Always Learning</li>
+      </ul>
     </section>
 
     <!-- BRAIN -->
     <section id="brain" class="brain-section">
-     <h2 id="brain-heading" class="section-title">💭 What’s in my Brain?</h2>
+      <h2 id="brain-heading" class="section-title">💭 What’s in my Brain?</h2>
 
       <div class="brain-stage" role="group" aria-labelledby="brain-heading">
         <div class="brain-core" role="img" aria-label="Brain illustration">🧠</div>
@@ -90,67 +90,22 @@
         <div class="skill s8"><span class="skill__label">Data&nbsp;Structures</span></div>
       </div>
 
-      <p class="mono brain-tip">tip: click the button to replay the animation.</p>
+      <p class="mono brain-tip">tip: refresh the page to replay the animation.</p>
     </section>
 
     <!-- LINKS -->
     <section>
       <h2 class="section-title">Links</h2>
       <ul class="link-list">
-        <li><a href="https://validator.w3.org/nu/?doc=https://tasneemalmuzian.github.io/">Validate HTML</a></li>
-        <li><a href="https://jigsaw.w3.org/css-validator/validator?uri=https://tasneemalmuzian.github.io/style.css&profile=css3svg&usermedium=all&warning=no">Validate CSS</a></li>
-        <li><a href="https://wave.webaim.org/report#/https://tasneemalmuzian.github.io/">WAVE accessibility checker</a></li>
+        <li><a href="https://validator.w3.org/nu/">Validate HTML</a></li>
+        <li><a href="https://jigsaw.w3.org/css-validator/">Validate CSS</a></li>
+        <li><a href="https://wave.webaim.org/">WAVE accessibility checker</a></li>
       </ul>
     </section>
   </main>
 
   <footer class="container footer">
-    <p>© <span id="year">2025</span> Tasneem Almuzian — UCI • Computer Science</p>
+    <p>© 2025 Tasneem Almuzian — UCI • Computer Science</p>
   </footer>
-
-  <script>
-    (function () {
-      if (location.hash === '#brain') {
-        history.replaceState(null, '', location.pathname + location.search);
-        window.scrollTo(0, 0);
-      }
-
-      const brain = document.getElementById('brain');
-      const stage = brain.querySelector('.brain-stage');
-      const triggers = [document.getElementById('brainBtn'), document.getElementById('brainBtn2')].filter(Boolean);
-
-      function playBrain() {
-        stage.classList.remove('play');
-        void stage.offsetWidth;
-        stage.classList.add('play');
-      }
-
-      triggers.forEach(el => el.addEventListener('click', (e) => {
-        e.preventDefault();
-        brain.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setTimeout(playBrain, 250);
-      }));
-
-      let playedOnce = false;
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((en) => {
-          if (en.isIntersecting && !playedOnce) {
-            playedOnce = true;
-            playBrain();
-          }
-        });
-      }, { threshold: 0.2 });
-      io.observe(brain);
-
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          if (!stage.classList.contains('play')) playBrain();
-        }, 400);
-      });
-
-      const y = document.getElementById('year');
-      if (y) y.textContent = new Date().getFullYear();
-    })();
-  </script>
 </body>
 </html>
