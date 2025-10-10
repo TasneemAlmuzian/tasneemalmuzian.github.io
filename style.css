@@ -1,42 +1,48 @@
 /* ===========================
    Tasneem Almuzian • Portfolio
-   Simple, readable, student-style CSS
+   Clean, student-style CSS
    =========================== */
 
-/* Theme colors (easy to tweak) */
+/* Theme variables */
 :root{
   --bg:#ffffff;
   --text:#111827;
   --muted:#374151;
   --border:#eadff5;
+
+  /* pink palette */
   --primary:#db2777;
   --primary-2:#f472b6;
 
-  /* height of sticky nav for anchor offsets */
-  --nav-offset: 64px;
+  /* sticky nav offset for anchor jumps */
+  --nav-offset: 72px;
 }
 
-/* Basic resets */
+/* Basic reset */
 *{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
 body{
   margin:0;
   font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
   color:var(--text);
-  background:#fff; /* simple background for student vibe */
+  background:
+    radial-gradient(60% 50% at 10% 0%, #fff2fa 0%, transparent 50%),
+    radial-gradient(60% 50% at 90% 0%, #fff0f7 0%, transparent 55%),
+    #ffffff;
   line-height:1.6;
   max-width:100vw;
   overflow-x:hidden;
 }
 
-/* make anchored sections leave room for sticky nav */
+/* Make anchored sections leave room for sticky nav */
 .section{ scroll-margin-top: var(--nav-offset); }
 
 .container{ max-width:1100px; margin:0 auto; padding:0 1rem; }
 
 a{ color:#1d4ed8; }
+a:visited{ color:#be185d; }
 
-/* ===== Accessibility helpers ===== */
+/* Accessibility helpers */
 .skip-link{
   position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
 }
@@ -56,10 +62,10 @@ button:focus-visible,
   border-radius:.6rem;
 }
 
-/* ===== Top nav ===== */
+/* nav */
 .nav{
   position:sticky; top:0; z-index:50;
-  background-color:rgba(255,255,255,.97);
+  background-color:rgba(255,255,255,.95);
   border-bottom:1px solid var(--border);
 }
 .nav-inner{
@@ -68,12 +74,11 @@ button:focus-visible,
 }
 .nav-links{ display:flex; gap:.75rem; flex-wrap:wrap; }
 .nav-links a{
-  color:var(--text); text-decoration:none;
-  padding:.4rem .6rem; border-radius:.5rem;
+  color:var(--text); text-decoration:none; padding:.4rem .6rem; border-radius:.5rem;
 }
 .nav-links a:hover{ background:#fff; }
 
-/* ===== Hero ===== */
+/* hero */
 .hero{
   display:grid; grid-template-columns:1.2fr 1fr; gap:2rem;
   align-items:center; padding:3.5rem 0 2rem;
@@ -86,18 +91,17 @@ button:focus-visible,
   font-size:clamp(2.2rem,4.5vw,3.5rem);
   position:relative;
 }
-/* simple underline highlight */
 .name-gradient::after{
   content:"";
   position:absolute; left:0; right:0; bottom:-.2rem; height:.4rem;
   border-radius:.2rem;
-  background:linear-gradient(90deg,var(--primary),var(--primary-2));
+  background:linear-gradient(90deg,var(--primary) 0%, var(--primary-2) 100%);
   opacity:.96;
 }
 .lead{ max-width:60ch; }
 .actions{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }
 
-/* ===== Buttons ===== */
+/* buttons */
 .btn{
   display:inline-block; font-weight:600; text-decoration:none; cursor:pointer;
   border-radius:.75rem; padding:.7rem 1rem; transition:.15s ease;
@@ -111,12 +115,13 @@ button:focus-visible,
 .btn-primary:hover{ filter:brightness(.96); transform:translateY(-1px); }
 .btn-ghost{
   color:var(--text);
-  background:#fff;
-  border:2px solid var(--primary);
+  background:linear-gradient(#fff,#fff) padding-box,
+            linear-gradient(90deg,var(--primary),var(--primary-2)) border-box;
+  border:2px solid transparent;
 }
 .btn-ghost:hover{ box-shadow:0 6px 20px rgba(219,39,119,.18); }
 
-/* ===== Photo + ring ===== */
+/* photo + rings */
 .pic-wrap{
   position:relative;
   display:inline-block;
@@ -124,24 +129,38 @@ button:focus-visible,
   border-radius:50%;
   border:2px solid var(--border);
   background:#fff;
-  /* FIXED: 12p -> 12px, valid box-shadow */
-  box-shadow:0 12px 36px rgba(219,39,119,.10);
-  isolation:isolate;
+  /* IMPORTANT: valid shadow (no 12p, no '0' alone) */
+  box-shadow:0 12px 36px rgba(219,39,119,.15);
+  isolation:isolate; /* keep rings under the photo */
 }
 .hero-pic{
   display:block; width:min(70vw,300px); height:min(70vw,300px);
-  object-fit:cover; object-position:40% 38%;
+  object-fit:cover;
+  object-position:40% 38%;
   border-radius:50%;
-  position:relative; z-index:1;
+  position:relative;
+  z-index:1;
 }
 .ring{
-  position:absolute; z-index:-1; border-radius:50%; pointer-events:none;
+  position:absolute;
+  z-index:-1; /* stay behind the image */
+  border-radius:50%;
+  pointer-events:none;
 }
 .ring-1{ inset:-8px; border:2px dashed var(--border); animation:spin 14s linear infinite; }
-/* kept simple (one ring) */
+.ring-2{
+  inset:-18px;
+  border:3px solid transparent;
+  background:
+    conic-gradient(from 0deg, var(--primary), var(--primary-2), var(--primary)) border-box,
+    radial-gradient(circle, #fff 62%, #fff 62%) padding-box;
+  background-clip: border-box, padding-box;
+  opacity:.32;
+  animation:spin 24s linear infinite reverse;
+}
 @keyframes spin{ to{ transform:rotate(360deg); } }
 
-/* ===== Sections ===== */
+/* sections */
 .section-title{
   font-family:"Playfair Display",serif; font-weight:800;
   border-bottom:1px solid var(--border); padding-bottom:.35rem; margin:1.25rem 0 .9rem;
@@ -154,7 +173,7 @@ button:focus-visible,
   border-radius:999px; padding:.4rem .8rem; font-weight:600; font-size:.95rem;
 }
 
-/* ===== Brain section ===== */
+/* brain section */
 .brain-section{ text-align:center; }
 .brain-tip{ color:#374151; font-size:.9rem; margin-top:.5rem; }
 
@@ -165,59 +184,45 @@ button:focus-visible,
   margin:1.25rem auto 0;
 }
 .brain-core{
-  position:absolute; inset:50% auto auto 50%;
+  position:absolute;
+  inset:50% auto auto 50%;
   transform:translate(-50%,-50%);
-  font-size:5rem; line-height:1;
-  user-select:none; pointer-events:none;
+  font-size:5rem;
+  line-height:1;
+  user-select:none;
+  pointer-events:none;
   filter:drop-shadow(0 10px 18px rgba(0,0,0,.08));
 }
 
-/* Skills are visible by default (so content still shows if animations are off) */
+/* skill nodes default (hidden at center before animation) */
 .skill{
   position:absolute;
-  top:var(--top); left:var(--left);
-  transform:translate(-50%,-50%) scale(1);
-  opacity:1;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%) scale(.4);
+  opacity:0;
 }
+
+/* visible label with strong contrast */
 .skill__label{
   display:inline-block;
-  background:#f9fafb; color:#111827;
-  border:1px solid #d1d5db; border-radius:999px;
-  padding:.55rem .9rem; font-weight:700; font-size:.95rem; white-space:nowrap;
+  background:#f9fafb;       /* near-white */
+  color:#111827;            /* very dark */
+  border:1px solid #d1d5db; /* grey border */
+  border-radius:999px;
+  padding:.55rem .9rem;
+  font-weight:700;
+  font-size:.95rem;
+  white-space:nowrap;
   box-shadow:0 6px 14px rgba(17,24,39,.08);
 }
 
-/* Autoplay pop once on page load (no JS) */
+/* === AUTOPLAY: run pop animation once on load (no JS) === */
 .brain-stage.animate .skill{
   animation:pop 820ms cubic-bezier(.2,.7,.2,1) forwards;
   animation-delay:var(--d,0s);
 }
 
-/* Also replay animation whenever #brain is the target (clicking the nav link) */
-#brain:target .brain-stage .skill{
-  animation-name: pop2;                 /* different name = re-run */
-  animation-duration: 820ms;
-  animation-timing-function: cubic-bezier(.2,.7,.2,1);
-  animation-fill-mode: forwards;
-  animation-delay: var(--d,0s);
-}
-
-/* Replay via checkbox: swap animation name so browser re-runs it */
-@keyframes pop{
-  0%   { opacity:0; transform:translate(-50%,-50%) scale(.4); top:50%; left:50%; }
-  60%  { opacity:1; transform:translate(-50%,-50%) scale(1.08); }
-  100% { opacity:1; transform:translate(-50%,-50%) scale(1); }
-}
-@keyframes pop2{
-  0%   { opacity:0; transform:translate(-50%,-50%) scale(.4); top:50%; left:50%; }
-  60%  { opacity:1; transform:translate(-50%,-50%) scale(1.08); }
-  100% { opacity:1; transform:translate(-50%,-50%) scale(1); }
-}
-#brainToggle:checked ~ .brain-stage .skill{
-  animation-name: pop2;
-}
-
-/* Final positions + stagger delays */
+/* positions + delays (final layout) */
 .s1{ --top:10%;  --left:50%;  --d:.15s; }
 .s2{ --top:22%;  --left:80%;  --d:.30s; }
 .s3{ --top:50%;  --left:92%;  --d:.45s; }
@@ -227,19 +232,51 @@ button:focus-visible,
 .s7{ --top:50%;  --left:8%;   --d:1.05s; }
 .s8{ --top:22%;  --left:20%;  --d:1.20s; }
 
-/* Links + footer */
+/* keyframes: center -> final position */
+@keyframes pop{
+  0%   { opacity:0; transform:translate(-50%,-50%) scale(.4); top:50%; left:50%; }
+  60%  { opacity:1; transform:translate(-50%,-50%) scale(1.08); }
+  100% { opacity:1; transform:translate(-50%,-50%) scale(1); top:var(--top); left:var(--left); }
+}
+
+/* === REPLAYs (no JS) === */
+/* 1) Clicking the nav link to #brain makes it a :target → re-run with a different name */
+@keyframes pop2{
+  0%   { opacity:0; transform:translate(-50%,-50%) scale(.4); top:50%; left:50%; }
+  60%  { opacity:1; transform:translate(-50%,-50%) scale(1.08); }
+  100% { opacity:1; transform:translate(-50%,-50%) scale(1); top:var(--top); left:var(--left); }
+}
+#brain:target .brain-stage .skill{
+  animation-name: pop2;
+  animation-duration: 820ms;
+  animation-timing-function: cubic-bezier(.2,.7,.2,1);
+  animation-fill-mode: forwards;
+  animation-delay: var(--d,0s);
+}
+
+/* 2) Optional “Replay animation” checkbox also swaps to pop2 */
+#brainToggle:checked ~ .brain-stage .skill{
+  animation-name: pop2;
+}
+
+/* links + footer */
 .link-list{ padding-left:1.1rem; }
 .footer{
   border-top:1px solid var(--border);
   margin-top:1.5rem; padding:1.25rem 1rem; color:var(--muted); text-align:center;
 }
 
-/* Respect prefers-reduced-motion */
+/* reduced-motion: place items statically, no animation */
 @media (prefers-reduced-motion: reduce){
-  .ring-1, .brain-stage .skill { animation: none; }
+  .ring-1, .ring-2, .brain-stage .skill { animation: none; }
+  .skill{ opacity:1; transform:translate(-50%,-50%) scale(1); }
+  .s1{ top:10%; left:50%; } .s2{ top:22%; left:80%; }
+  .s3{ top:50%; left:92%; } .s4{ top:78%; left:78%; }
+  .s5{ top:90%; left:50%; } .s6{ top:78%; left:22%; }
+  .s7{ top:50%; left:8%;  } .s8{ top:22%; left:20%; }
 }
 
-/* Mobile layout */
+/* responsive */
 @media (max-width: 900px){
   .hero{ grid-template-columns:1fr; text-align:center; }
   .lead{ margin:0 auto; }
