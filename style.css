@@ -110,7 +110,7 @@ button:focus-visible,
 }
 .btn-ghost:hover{ box-shadow:0 6px 20px rgba(219,39,119,.18); }
 
-/* ===== Photo + subtle rings ===== */
+/* ===== Photo + subtle ring ===== */
 .pic-wrap{
   position:relative;
   display:inline-block;
@@ -131,7 +131,6 @@ button:focus-visible,
   position:absolute; z-index:-1; border-radius:50%; pointer-events:none;
 }
 .ring-1{ inset:-8px; border:2px dashed var(--border); animation:spin 14s linear infinite; }
-.ring-2{ display:none; } /* simplify for student vibe */
 @keyframes spin{ to{ transform:rotate(360deg); } }
 
 /* ===== Sections ===== */
@@ -180,7 +179,7 @@ button:focus-visible,
   box-shadow:0 6px 14px rgba(17,24,39,.08);
 }
 
-/* Final positions + stagger delays */
+/* Final positions + stagger delays (used by :target / Boom!) */
 .s1{ --top:10%;  --left:50%;  --d:.15s; }
 .s2{ --top:22%;  --left:80%;  --d:.30s; }
 .s3{ --top:50%;  --left:92%;  --d:.45s; }
@@ -197,14 +196,24 @@ button:focus-visible,
   100% { opacity:1; transform:translate(-50%,-50%) scale(1); }
 }
 
-/* Replay via checkbox: swap animation name so browser re-runs it */
+/* Replay alt name (so the browser re-runs it) */
 @keyframes pop2{
   0%   { opacity:0; transform:translate(-50%,-50%) scale(.4); top:50%; left:50%; }
   60%  { opacity:1; transform:translate(-50%,-50%) scale(1.08); }
   100% { opacity:1; transform:translate(-50%,-50%) scale(1); }
 }
+
+/* ===== Validator-friendly triggers (no modern props) ===== */
+/* Click the nav link (#brain) → animate in */
+#brain:target .skill{
+  animation: pop 820ms cubic-bezier(.2,.7,.2,1) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+/* Click Boom! → replay */
 #brainToggle:checked ~ .brain-stage .skill{
-  animation-name: pop2;
+  animation: pop 820ms cubic-bezier(.2,.7,.2,1) forwards;
+  animation-delay: var(--d, 0s);
 }
 
 /* Links + footer */
@@ -225,28 +234,22 @@ button:focus-visible,
   .lead{ margin:0 auto; }
   .actions{ justify-content:center; }
 }
-/* ===== Scroll-driven animation (CSS only) ===== */
+
 @supports (animation-timeline: view()){
   .brain-stage{
     view-timeline-name: --brain;
     view-timeline-axis: block;
   }
-
-  /* as the section scrolls in, run the pop */
   .brain-stage .skill{
     opacity:0;
     transform:translate(-50%,-50%) scale(.4);
-    top:var(--top);
-    left:var(--left);
-
+    top:var(--top); left:var(--left);
     animation-name: pop;
     animation-duration: 1s;
     animation-fill-mode: both;
-    animation-timeline: --brain;      /* tie to scroll */
+    animation-timeline: --brain;
     animation-range: entry 0% cover 35%;
   }
-
-  /* simple stagger */
   .brain-stage .s1{ animation-range: entry 0%  cover 35%; }
   .brain-stage .s2{ animation-range: entry 5%  cover 35%; }
   .brain-stage .s3{ animation-range: entry 10% cover 35%; }
@@ -256,19 +259,8 @@ button:focus-visible,
   .brain-stage .s7{ animation-range: entry 30% cover 35%; }
   .brain-stage .s8{ animation-range: entry 35% cover 35%; }
 
-  /* replay in scroll-supporting browsers */
   #brainToggle:checked ~ .brain-stage .skill{
     animation-name: pop2;
   }
 }
-
-/* ===== Fallbacks (work even if scroll-driven isn't supported) ===== */
-#brain:target .skill{
-  animation: pop 820ms cubic-bezier(.2,.7,.2,1) forwards;
-  animation-delay: var(--d, 0s);
-}
-
-#brainToggle:checked ~ .brain-stage .skill{
-  animation: pop 820ms cubic-bezier(.2,.7,.2,1) forwards;
-  animation-delay: var(--d, 0s);
-}
+*/
