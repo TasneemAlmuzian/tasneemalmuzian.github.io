@@ -22,16 +22,12 @@ Talking to classmates about class material, assignment requirements, etc. is a g
 2. What (a) basic features, (b) CSS features, and (c) advanced features did you include in your portfolio?
 
 (a) Basic features
-
-
+I used a clear structure with header, nav, main, and footer sections so everything’s organized and easy to read. The navigation bar links to different sections on the same page Home, About, Brain, Contact. I added a “skip to main content” link for accessibility and made sure my image has alt text. I also included a short intro, an about section, and a contact button that opens an email.
 
 (b) CSS features
-
-
+I used custom fonts, a responsive grid layout for the hero section, and added hover effects for the buttons and links. I set up color variables and gradients, and made everything scale smoothly on smaller screens using media queries. I also styled the skip link so it only appears when focused and added some shadow and border effects to make things look cleaner and modern.
 
 (c) Advanced features
-
-
 
 
 3. Did you ignore any of the warnings or errors presented by the accessibility checker? If so, why does this not seem like an accessibility concern? If it's useful, you can consolidate your thoughts on multiple warnings/errors if the rationale is similar.
