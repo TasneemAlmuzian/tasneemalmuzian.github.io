@@ -4,31 +4,25 @@
   <meta charset="utf-8">
   <title>Tasneem Almuzian • Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- basic meta -->
   <meta name="author" content="Tasneem Almuzian">
-  <meta name="description" content="UCI CS student portfolio — cybersecurity and HCI interests.">
+  <meta name="description" content="UCI CS student portfolio — interests in cybersecurity and HCI.">
 
-  <!-- fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- css -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- keyboard/screen reader shortcut -->
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- simple nav -->
   <header class="nav">
     <div class="nav-inner">
       <nav class="nav-links" aria-label="Primary">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#brain">What’s in my Brain</a>
-        <a href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact</a>
+        <a href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem" aria-label="Contact Tasneem Almuzian by email">Contact</a>
       </nav>
     </div>
   </header>
@@ -46,7 +40,7 @@
         </p>
 
         <div class="actions">
-          <a class="btn btn-primary" href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem">Contact Me</a>
+          <a class="btn btn-primary" href="mailto:talmuzian@gmail.com?subject=Hello%20Tasneem" aria-label="Contact Tasneem Almuzian by email">Contact Me</a>
           <a class="btn btn-ghost" href="#brain">What’s in my Brain →</a>
         </div>
       </div>
@@ -63,9 +57,9 @@
     <section id="about">
       <h2 class="section-title">About</h2>
       <p>
-        I’m bilingual (English/Arabic) and focused on foundations in data structures, systems,
-        and web development. I like turning requirements into simple, inclusive experiences
-        that work on any device. I’m also exploring usable security in UI.
+        I’m bilingual (English/Arabic) and focused on strong foundations in data structures, systems,
+        and web development. I like turning requirements into simple, inclusive experiences that
+        work on any device. I’m exploring security best practices and usable security in UI.
       </p>
 
       <ul class="pill-row" aria-label="Personality and values">
@@ -87,8 +81,7 @@
       <input type="checkbox" id="brainToggle" class="visually-hidden" aria-hidden="true">
       <label for="brainToggle" class="btn btn-ghost" style="margin-top:.25rem">Replay animation</label>
 
-      <!-- 'animate' = first run on load (no JS) -->
-      <div class="brain-stage animate" role="group" aria-labelledby="brain-heading">
+      <div class="brain-stage" role="group" aria-labelledby="brain-heading">
         <div class="brain-core" role="img" aria-label="Brain illustration">🧠</div>
 
         <div class="skill s1"><span class="skill__label">C++</span></div>
@@ -101,28 +94,16 @@
         <div class="skill s8"><span class="skill__label">Data&nbsp;Structures</span></div>
       </div>
 
-      <p class="brain-tip">tip: click “Replay animation” to see the pop again.</p>
+      <p class="brain-tip">tip: click “Replay animation” if you want to see it again.</p>
     </section>
 
-    <!-- LINKS (now point to YOUR site) -->
+    <!-- LINKS -->
     <section>
       <h2 class="section-title">Links</h2>
       <ul class="link-list">
-        <li>
-          <a href="https://validator.w3.org/nu/?doc=https://tasneemalmuzian.github.io/">
-            Validate HTML (my live page)
-          </a>
-        </li>
-        <li>
-          <a href="https://jigsaw.w3.org/css-validator/validator?uri=https://tasneemalmuzian.github.io/style.css&profile=css3svg&usermedium=all&warning=normal">
-            Validate CSS (my live stylesheet)
-          </a>
-        </li>
-        <li>
-          <a href="https://wave.webaim.org/report#/https://tasneemalmuzian.github.io/">
-            WAVE accessibility report (my site)
-          </a>
-        </li>
+        <li><a href="https://validator.w3.org/nu/">Validate HTML</a></li>
+        <li><a href="https://jigsaw.w3.org/css-validator/">Validate CSS</a></li>
+        <li><a href="https://wave.webaim.org/">WAVE accessibility checker</a></li>
       </ul>
     </section>
   </main>
