@@ -202,11 +202,13 @@ button:focus-visible,
   box-shadow:0 6px 14px rgba(17,24,39,.08);
 }
 
-/* animate out when .play is set on stage */
-.brain-stage.play .skill{
+/* === CSS-ONLY AUTOPLAY === */
+.brain-stage .skill{
   animation:pop 820ms cubic-bezier(.2,.7,.2,1) forwards;
   animation-delay:var(--d,0s);
 }
+
+/* positions + delays */
 .s1{ --top:10%;  --left:50%;  --d:.15s; }
 .s2{ --top:22%;  --left:80%;  --d:.30s; }
 .s3{ --top:50%;  --left:92%;  --d:.45s; }
@@ -222,6 +224,18 @@ button:focus-visible,
   100% { opacity:1; transform:translate(-50%,-50%) scale(1); top:var(--top); left:var(--left); }
 }
 
+/* === CSS-ONLY REPLAY (checkbox swap) === */
+@keyframes pop2{
+  0%   { opacity:0; transform:translate(-50%,-50%) scale(.4); top:50%; left:50%; }
+  60%  { opacity:1; transform:translate(-50%,-50%) scale(1.08); }
+  100% { opacity:1; transform:translate(-50%,-50%) scale(1); top:var(--top); left:var(--left); }
+}
+
+/* When the checkbox is checked, switch to pop2 so browser re-runs animation */
+#brainToggle:checked ~ .brain-stage .skill{
+  animation-name: pop2;
+}
+
 /* links + footer */
 .link-list{ padding-left:1.1rem; }
 .footer{
@@ -231,7 +245,7 @@ button:focus-visible,
 
 /* reduced-motion: place items statically, no animation */
 @media (prefers-reduced-motion: reduce){
-  .ring-1, .ring-2, .brain-stage.play .skill { animation: none; }
+  .ring-1, .ring-2, .brain-stage .skill { animation: none; }
   .skill{ opacity:1; transform:translate(-50%,-50%) scale(1); }
   .s1{ top:10%; left:50%; } .s2{ top:22%; left:80%; }
   .s3{ top:50%; left:92%; } .s4{ top:78%; left:78%; }
