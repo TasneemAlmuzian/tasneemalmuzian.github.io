@@ -3,7 +3,7 @@
    Simple, readable, student-style CSS
    =========================== */
 
-/* Theme colors */
+/* Theme colors (easy to tweak) */
 :root{
   --bg:#ffffff;
   --text:#111827;
@@ -11,6 +11,9 @@
   --border:#eadff5;
   --primary:#db2777;
   --primary-2:#f472b6;
+
+  /* height of sticky nav for anchor offsets */
+  --nav-offset: 64px;
 }
 
 /* Basic resets */
@@ -20,18 +23,18 @@ body{
   margin:0;
   font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
   color:var(--text);
-  background:#fff;
+  background:#fff; /* simple background for student vibe */
   line-height:1.6;
   max-width:100vw;
   overflow-x:hidden;
 }
 
+/* make anchored sections leave room for sticky nav */
+.section{ scroll-margin-top: var(--nav-offset); }
+
 .container{ max-width:1100px; margin:0 auto; padding:0 1rem; }
 
 a{ color:#1d4ed8; }
-
-/* Keep anchors from hiding under sticky nav */
-section{ scroll-margin-top: 84px; }
 
 /* ===== Accessibility helpers ===== */
 .skip-link{
@@ -113,7 +116,7 @@ button:focus-visible,
 }
 .btn-ghost:hover{ box-shadow:0 6px 20px rgba(219,39,119,.18); }
 
-/* ===== Photo + subtle ring ===== */
+/* ===== Photo + ring ===== */
 .pic-wrap{
   position:relative;
   display:inline-block;
@@ -121,7 +124,7 @@ button:focus-visible,
   border-radius:50%;
   border:2px solid var(--border);
   background:#fff;
-  /* FIX: was 12p; validator complained. Correct is 12px */
+  /* FIXED: 12p -> 12px, valid box-shadow */
   box-shadow:0 12px 36px rgba(219,39,119,.10);
   isolation:isolate;
 }
@@ -135,7 +138,7 @@ button:focus-visible,
   position:absolute; z-index:-1; border-radius:50%; pointer-events:none;
 }
 .ring-1{ inset:-8px; border:2px dashed var(--border); animation:spin 14s linear infinite; }
-.ring-2{ display:none; } /* simplified for student vibe */
+/* kept simple (one ring) */
 @keyframes spin{ to{ transform:rotate(360deg); } }
 
 /* ===== Sections ===== */
@@ -169,7 +172,7 @@ button:focus-visible,
   filter:drop-shadow(0 10px 18px rgba(0,0,0,.08));
 }
 
-/* Skills are visible by default (so content isn't hidden without animation) */
+/* Skills are visible by default (so content still shows if animations are off) */
 .skill{
   position:absolute;
   top:var(--top); left:var(--left);
@@ -184,14 +187,34 @@ button:focus-visible,
   box-shadow:0 6px 14px rgba(17,24,39,.08);
 }
 
-/* Autoplay once on load (no JS) */
+/* Autoplay pop once on page load (no JS) */
 .brain-stage.animate .skill{
-  /* using longhand so we can override just the name later */
-  animation-name: pop;
+  animation:pop 820ms cubic-bezier(.2,.7,.2,1) forwards;
+  animation-delay:var(--d,0s);
+}
+
+/* Also replay animation whenever #brain is the target (clicking the nav link) */
+#brain:target .brain-stage .skill{
+  animation-name: pop2;                 /* different name = re-run */
   animation-duration: 820ms;
   animation-timing-function: cubic-bezier(.2,.7,.2,1);
   animation-fill-mode: forwards;
   animation-delay: var(--d,0s);
+}
+
+/* Replay via checkbox: swap animation name so browser re-runs it */
+@keyframes pop{
+  0%   { opacity:0; transform:translate(-50%,-50%) scale(.4); top:50%; left:50%; }
+  60%  { opacity:1; transform:translate(-50%,-50%) scale(1.08); }
+  100% { opacity:1; transform:translate(-50%,-50%) scale(1); }
+}
+@keyframes pop2{
+  0%   { opacity:0; transform:translate(-50%,-50%) scale(.4); top:50%; left:50%; }
+  60%  { opacity:1; transform:translate(-50%,-50%) scale(1.08); }
+  100% { opacity:1; transform:translate(-50%,-50%) scale(1); }
+}
+#brainToggle:checked ~ .brain-stage .skill{
+  animation-name: pop2;
 }
 
 /* Final positions + stagger delays */
@@ -203,28 +226,6 @@ button:focus-visible,
 .s6{ --top:78%;  --left:22%;  --d:.90s; }
 .s7{ --top:50%;  --left:8%;   --d:1.05s; }
 .s8{ --top:22%;  --left:20%;  --d:1.20s; }
-
-/* From center -> final spot */
-@keyframes pop{
-  0%   { opacity:0; transform:translate(-50%,-50%) scale(.4); top:50%; left:50%; }
-  60%  { opacity:1; transform:translate(-50%,-50%) scale(1.08); }
-  100% { opacity:1; transform:translate(-50%,-50%) scale(1); }
-}
-
-/* Replay via checkbox: swap animation name so browser re-runs it */
-@keyframes pop2{
-  0%   { opacity:0; transform:translate(-50%,-50%) scale(.4); top:50%; left:50%; }
-  60%  { opacity:1; transform:translate(-50%,-50%) scale(1.08); }
-  100% { opacity:1; transform:translate(-50%,-50%) scale(1); }
-}
-#brainToggle:checked ~ .brain-stage .skill{
-  animation-name: pop2;
-}
-
-/* Also replay when the section is the anchor target (clicking nav link) */
-#brain:target .brain-stage .skill{
-  animation-name: pop2;
-}
 
 /* Links + footer */
 .link-list{ padding-left:1.1rem; }
